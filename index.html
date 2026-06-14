@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move It Logistics - Track Your Container</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-section">
+            <img src="logo.png" alt="Move It Logistics" class="logo">
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Track Your Container</h1>
+            <p class="subtitle">Enter your container number to view real-time tracking information</p>
+
+            <!-- Search Form -->
+            <div class="search-section">
+                <input 
+                    type="text" 
+                    id="containerInput" 
+                    class="search-input" 
+                    placeholder="e.g., SITU2646830"
+                    autocomplete="off"
+                >
+                <button id="trackBtn" class="track-button">Track</button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading" style="display: none;">
+                <p>Searching for container...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error" style="display: none;">
+                <p id="errorMessage"></p>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="results" style="display: none;">
+                <div class="container-details">
+                    <h2>Container Details</h2>
+                    
+                    <div class="detail-item">
+                        <label>CONTAINER ID</label>
+                        <p id="containerId" class="detail-value">-</p>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-card">
+                            <label>STATUS</label>
+                            <p id="status" class="status-badge">-</p>
+                        </div>
+                        <div class="detail-card">
+                            <label>VEHICLE NUMBER</label>
+                            <p id="vehicleNumber" class="detail-value">-</p>
+                        </div>
+                        <div class="detail-card">
+                            <label>DRIVER NAME</label>
+                            <p id="driverName" class="detail-value">-</p>
+                        </div>
+                        <div class="detail-card">
+                            <label>VEHICLE TYPE</label>
+                            <p id="vehicleType" class="detail-value">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="newSearchBtn" class="new-search-button">New Search</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
