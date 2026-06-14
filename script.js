@@ -38,7 +38,9 @@ async function searchContainer() {
             headers: {
                 'Authorization': `Bearer ${API_KEY}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            mode: 'cors',
+            credentials: 'omit'
         });
 
         if (!response.ok) {
@@ -46,8 +48,10 @@ async function searchContainer() {
                 throw new Error('Container not found. Please check the container number.');
             } else if (response.status === 401) {
                 throw new Error('Authentication failed. Please contact support.');
+            } else if (response.status === 0) {
+                throw new Error('Unable to connect to tracking server. Please check your internet connection.');
             } else {
-                throw new Error('Failed to fetch container data. Please try again.');
+                throw new Error(`Failed to fetch container data (Error ${response.status}). Please try again.`);
             }
         }
 
@@ -56,7 +60,13 @@ async function searchContainer() {
 
     } catch (error) {
         console.error('Error:', error);
-        showError(error.message || 'An error occurred while fetching data. Please try again.');
+        
+        // Handle network/CORS errors
+        if (error.message.includes('Failed to fetch')) {
+            showError('Unable to connect to tracking server. This might be a network issue or server unavailability. Please try again later.');
+        } else {
+            showError(error.message || 'An error occurred while fetching data. Please try again.');
+        }
     } finally {
         showLoading(false);
     }
